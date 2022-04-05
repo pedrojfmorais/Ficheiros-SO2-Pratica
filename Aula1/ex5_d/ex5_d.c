@@ -35,7 +35,7 @@ int _tmain(int argc, LPTSTR argv[]) {
 		ZeroMemory(&si, sizeof(STARTUPINFO));
 		si.cb = sizeof(STARTUPINFO);
 
-		if (CreateProcess(NULL, ar gv[0] + vezes, NULL, NULL, 0, 0, NULL, NULL, &si, &pi)) {
+		if (CreateProcess(NULL, argv[0] + vezes, NULL, NULL, 0, 0, NULL, NULL, &si, &pi)) {
 			_tprintf(TEXT("O programa foi executado! %d\n"), vezes);
 			vezes--;
 			WaitForSingleObject(pi.hProcess, INFINITE);
