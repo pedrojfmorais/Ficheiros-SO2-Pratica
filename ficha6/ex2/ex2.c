@@ -64,6 +64,7 @@ BOOL initMemAndSync(ControlData *cdata){
 	
 	if(cdata->hRWMutex == NULL){
 		_tprintf(_T("ERROR: CreateMutex (%d)\n"), GetLastError());
+		UnmapViewOfFile(cdata->sharedMsg);
 		CloseHandle(cdata->hMapFile);
 		return FALSE;
 	}
@@ -77,13 +78,14 @@ BOOL initMemAndSync(ControlData *cdata){
 	
 	if(cdata->newMsg == NULL){
 		_tprintf(_T("ERROR: CreateEvent (%d)\n"), GetLastError());
+		UnmapViewOfFile(cdata->sharedMsg);
 		CloseHandle(cdata->hMapFile);
 		CloseHandle(cdata->hRWMutex);
 		return FALSE;
 	}
 }
 
-void sendMsg(ControlData* pcd) {
+BOOL WINAPI sendMsg(ControlData* pcd) {
 	SharedMsg msg;
 	while (1) {
 		_getts_s(msg.szMessage, MSGTEXT_SZ);
@@ -103,6 +105,7 @@ void sendMsg(ControlData* pcd) {
 		if (!pcd->threadMustContinue)
 			break;
 	}
+	return TRUE;
 }
 
 DWORD WINAPI receiveMsg(LPVOID p) {
@@ -140,9 +143,12 @@ int _tmain(int argc, TCHAR* argv[]) {
 
 	cdata.threadMustContinue = 1;
 	hThread = CreateThread(NULL, 0, receiveMsg, &cdata, 0, NULL);
-	_tprintf(_T("Send messages to othre users. ..."));
-	sendMsg(&cdata);
+	_tprintf(_T("Send messages to other users. ..."));
+
+	sendMsg(&cdata); 
+	_tprintf(_T("Client is exiting\n"));
+	WaitForSingleObject(hThread, INFINITE);
+	CloseHandle(hThread);
 
 	return 0;
 }
-// Este código é apenas uma ajuda para o exercício. Se quiser, mude-o
