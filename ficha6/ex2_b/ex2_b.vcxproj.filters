@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ex2_a.c">
+    <ClCompile Include="ex2_b.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
