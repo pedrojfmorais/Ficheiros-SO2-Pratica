@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\ex3\consumidor.c">
+    <ClCompile Include="consumidor.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
