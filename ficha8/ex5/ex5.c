@@ -194,8 +194,8 @@ LRESULT CALLBACK TrataEventos(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lPara
 
 	case WM_LBUTTONDOWN:
 
-		posChar[indexPosChar].xPos = GET_X_LPARAM(lParam);;
-		posChar[indexPosChar].yPos = GET_Y_LPARAM(lParam);;
+		posChar[indexPosChar].xPos = GET_X_LPARAM(lParam);
+		posChar[indexPosChar].yPos = GET_Y_LPARAM(lParam);
 		posChar[indexPosChar].tecla = teclaCarregada;
 
 		indexPosChar++;
